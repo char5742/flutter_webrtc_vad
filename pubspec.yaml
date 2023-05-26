@@ -1,0 +1,48 @@
+name: flutter_webrtc_vad
+description: A new Flutter plugin project.
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: '>=3.0.1 <4.0.0'
+  flutter: ">=3.3.0"
+
+dependencies:
+  ffi: ^2.0.2
+  ffigen: ^8.0.2
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.example.flutter_webrtc_vad
+        pluginClass: FlutterWebrtcVadPlugin
+      ios:
+        pluginClass: FlutterWebrtcVadPlugin
+
+ffigen:
+  name: 'WebrtcVadLibrary'
+  description: 'Bindings to WebrtcVadLibrary'
+  output: 'lib/generated_bindings.dart'
+  llvm-path:
+    - 'C:\Program Files\llvm'
+  headers:
+    entry-points:
+      - 'fvad.h'
+    include-directives:
+      - 'fvad.h'
+  compiler-opts:
+    - '"-IC:\Program Files\LLVM\lib\clang\16\include\"'
+
+
+scripts:
+  # bindingクラスを生成する
+  ffigen: flutter pub run ffigen
