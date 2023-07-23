@@ -9,7 +9,7 @@ class FlutterWebrtcVAD {
   Pointer<Fvad>? instance;
   bool isInitialized = false;
 
-  void initialize({VADMode mode=VADMode.normal, int sampleRate=16000}) {
+  void initialize({VADMode mode = VADMode.normal, int sampleRate = 16000}) {
     instance = lib.fvad_new();
     if (instance == null) throw Exception('fvad_new failed');
     _setMode(mode);
@@ -18,6 +18,7 @@ class FlutterWebrtcVAD {
   }
 
   void dispose() {
+    if (!isInitialized) return;
     lib.fvad_reset(instance!);
     lib.fvad_free(instance!);
     isInitialized = false;
